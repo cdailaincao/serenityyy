@@ -1,59 +1,44 @@
-// Load saved data on page load
-window.onload = function () {
-    document.getElementById("moodDisplay").innerText =
-        localStorage.getItem("mood") || "";
-
-    document.getElementById("waterDisplay").innerText =
-        localStorage.getItem("water") || "";
-
-    document.getElementById("sleepDisplay").innerText =
-        localStorage.getItem("sleep") || "";
-
-    let foodData = JSON.parse(localStorage.getItem("food")) || [];
-    foodData.forEach(item => addFoodToList(item));
-};
-
-// Mood
-function saveMood() {
-    let mood = document.getElementById("mood").value;
-    if (mood) {
-        localStorage.setItem("mood", "Today's mood: " + mood);
-        document.getElementById("moodDisplay").innerText =
-            "Today's mood: " + mood;
-    }
+body {
+    font-family: Arial;
+    background: #eef6f3;
+    margin: 0;
 }
 
-// Food
-function saveFood() {
-    let food = document.getElementById("food").value;
-    if (!food) return;
-
-    let foodData = JSON.parse(localStorage.getItem("food")) || [];
-    foodData.push(food);
-    localStorage.setItem("food", JSON.stringify(foodData));
-
-    addFoodToList(food);
-    document.getElementById("food").value = "";
+.auth-card {
+    width: 300px;
+    margin: 100px auto;
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
 }
 
-function addFoodToList(food) {
-    let li = document.createElement("li");
-    li.innerText = food;
-    document.getElementById("foodList").appendChild(li);
+header {
+    background: #4caf9d;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
 }
 
-// Water
-function saveWater() {
-    let water = document.getElementById("water").value;
-    localStorage.setItem("water", "Water intake: " + water + " glasses");
-    document.getElementById("waterDisplay").innerText =
-        "Water intake: " + water + " glasses";
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    padding: 20px;
+    gap: 20px;
 }
 
-// Sleep
-function saveSleep() {
-    let sleep = document.getElementById("sleep").value;
-    localStorage.setItem("sleep", "Sleep: " + sleep + " hours");
-    document.getElementById("sleepDisplay").innerText =
-        "Sleep: " + sleep + " hours";
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+button {
+    background: #4caf9d;
+    color: white;
+    border: none;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
 }
