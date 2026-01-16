@@ -56,14 +56,23 @@
     <button onclick="startExercise()">Start 5-min Timer</button>
     <p id="timer"></p>
 </div>
+<div class="card">
+    <h2>📝 Daily Journal</h2>
 
+    <textarea id="journalText" rows="6"
+        placeholder="Write your thoughts, feelings, or reflections here..."></textarea>
+
+    <button onclick="saveJournal()">Save Entry</button>
+
+    <h3>Past Entries</h3>
+    <ul id="journalList"></ul>
 </div>
 
 <div class="card">
     <h2>Export Wellness Report</h2>
     <button onclick="exportPDF()">Download PDF</button>
 </div>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="script.js"></script>
