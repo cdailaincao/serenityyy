@@ -20,16 +20,24 @@ function login() {
 
 function logout() {
     localStorage.removeItem("user");
+    window.moodChartRef = null;
     location.href = "index.html";
 }
 
+
 // MOOD + HISTORY
 function saveMood() {
-    let data = JSON.parse(localStorage.getItem("moods")) || [];
-    data.push({ date: new Date().toLocaleDateString(), mood: mood.value });
-    localStorage.setItem("moods", JSON.stringify(data));
+    const data = JSON.parse(localStorage.getItem(getUserKey("moods"))) || [];
+
+    data.push({
+        date: new Date().toLocaleDateString(),
+        mood: mood.value
+    });
+
+    localStorage.setItem(getUserKey("moods"), JSON.stringify(data));
     drawChart();
 }
+
 
 // FOOD
 function saveFood() {
@@ -62,18 +70,27 @@ function startExercise() {
 
 // CHART
 function drawChart() {
-    let moods = JSON.parse(localStorage.getItem("moods")) || [];
-    new Chart(moodChart, {
-        type: 'bar',
-        data: {
-            labels: moods.map(m => m.date),
-            datasets: [{
-                label: 'Mood History',
-                data: moods.map((_, i) => i + 1)
-            }]
-        }
-    });
+    const moods = JSON.parse(localStorage.getItem(getUserKey("moods"))) || [];
+
+    if (!window.moodChartRef) {
+        const ctx = document.getElementById("moodChart").getContext("2d");
+        window.moodChartRef = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: moods.map(m => m.date),
+                datasets: [{
+                    label: 'Mood History',
+                    data: moods.map((_, i) => i + 1)
+                }]
+            }
+        });
+    } else {
+        window.moodChartRef.data.labels = moods.map(m => m.date);
+        window.moodChartRef.data.datasets[0].data = moods.map((_, i) => i + 1);
+        window.moodChartRef.update();
+    }
 }
+
 // JOURNALING MODULE
 
 function saveJournal() {
@@ -106,6 +123,12 @@ function loadJournals() {
         list.appendChild(li);
     });
 }
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("user")) {
+        drawChart();
+        loadJournals(); // if journaling module exists
+    }
+});
 
 // Load journals when dashboard opens
 document.addEventListener("DOMContentLoaded", loadJournals);
