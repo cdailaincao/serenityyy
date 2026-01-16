@@ -4,6 +4,11 @@ function signup() {
     authMsg.innerText = "Signup successful!";
 }
 
+function getUserKey(key) {
+    const user = localStorage.getItem("user");
+    return user ? `${user}_${key}` : key;
+}
+
 function login() {
     if (localStorage.getItem(username.value) === password.value) {
         localStorage.setItem("user", username.value);
