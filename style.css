@@ -34,6 +34,14 @@ header {
     border-radius: 10px;
 }
 
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+
 button {
     background: #4caf9d;
     color: white;
