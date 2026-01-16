@@ -69,6 +69,41 @@ function drawChart() {
         }
     });
 }
+// JOURNALING MODULE
+
+function saveJournal() {
+    const text = document.getElementById("journalText").value.trim();
+    if (!text) return;
+
+    const entry = {
+        date: new Date().toLocaleString(),
+        text: text
+    };
+
+    const journals = JSON.parse(localStorage.getItem("journals")) || [];
+    journals.unshift(entry); // newest first
+    localStorage.setItem("journals", JSON.stringify(journals));
+
+    document.getElementById("journalText").value = "";
+    loadJournals();
+}
+
+function loadJournals() {
+    const list = document.getElementById("journalList");
+    if (!list) return;
+
+    list.innerHTML = "";
+    const journals = JSON.parse(localStorage.getItem("journals")) || [];
+
+    journals.forEach(j => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${j.date}</strong><br>${j.text}`;
+        list.appendChild(li);
+    });
+}
+
+// Load journals when dashboard opens
+document.addEventListener("DOMContentLoaded", loadJournals);
 
 if (typeof moodChart !== "undefined") drawChart();
 function exportPDF() {
@@ -152,3 +187,4 @@ function exportPDF() {
     // Save PDF
     doc.save("Serenity_Wellness_Report.pdf");
 }
+
