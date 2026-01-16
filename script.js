@@ -1,44 +1,73 @@
-body {
-    font-family: Arial;
-    background: #eef6f3;
-    margin: 0;
+// AUTH
+function signup() {
+    localStorage.setItem(username.value, password.value);
+    authMsg.innerText = "Signup successful!";
 }
 
-.auth-card {
-    width: 300px;
-    margin: 100px auto;
-    background: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
+function login() {
+    if (localStorage.getItem(username.value) === password.value) {
+        localStorage.setItem("user", username.value);
+        location.href = "dashboard.html";
+    } else {
+        authMsg.innerText = "Invalid login!";
+    }
 }
 
-header {
-    background: #4caf9d;
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
+function logout() {
+    localStorage.removeItem("user");
+    location.href = "index.html";
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    padding: 20px;
-    gap: 20px;
+// MOOD + HISTORY
+function saveMood() {
+    let data = JSON.parse(localStorage.getItem("moods")) || [];
+    data.push({ date: new Date().toLocaleDateString(), mood: mood.value });
+    localStorage.setItem("moods", JSON.stringify(data));
+    drawChart();
 }
 
-.card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
+// FOOD
+function saveFood() {
+    let li = document.createElement("li");
+    li.innerText = food.value;
+    foodList.appendChild(li);
 }
 
-button {
-    background: #4caf9d;
-    color: white;
-    border: none;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
+// WATER
+function saveWater() {
+    waterDisplay.innerText = water.value + " glasses";
 }
+
+// SLEEP
+function saveSleep() {
+    sleepDisplay.innerText = sleep.value + " hours";
+}
+
+// EXERCISE TIMER
+function startExercise() {
+    let time = 300;
+    let interval = setInterval(() => {
+        timer.innerText = `Time left: ${time--}s`;
+        if (time < 0) {
+            clearInterval(interval);
+            timer.innerText = "Exercise Complete ✅";
+        }
+    }, 1000);
+}
+
+// CHART
+function drawChart() {
+    let moods = JSON.parse(localStorage.getItem("moods")) || [];
+    new Chart(moodChart, {
+        type: 'bar',
+        data: {
+            labels: moods.map(m => m.date),
+            datasets: [{
+                label: 'Mood History',
+                data: moods.map((_, i) => i + 1)
+            }]
+        }
+    });
+}
+
+if (typeof moodChart !== "undefined") drawChart();
