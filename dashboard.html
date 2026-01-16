@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Serenity | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Serenity 🌿</h1>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<div class="grid">
+
+<div class="card">
+    <h2>Mood Tracker</h2>
+    <select id="mood">
+        <option>Happy 😊</option>
+        <option>Calm 😌</option>
+        <option>Stressed 😣</option>
+        <option>Sad 😔</option>
+    </select>
+    <button onclick="saveMood()">Save</button>
+    <canvas id="moodChart"></canvas>
+</div>
+
+<div class="card">
+    <h2>Food Intake</h2>
+    <input id="food" placeholder="Food item">
+    <button onclick="saveFood()">Add</button>
+    <ul id="foodList"></ul>
+</div>
+
+<div class="card">
+    <h2>Water (glasses)</h2>
+    <input type="number" id="water">
+    <button onclick="saveWater()">Save</button>
+    <p id="waterDisplay"></p>
+</div>
+
+<div class="card">
+    <h2>Sleep (hours)</h2>
+    <input type="number" id="sleep" step="0.5">
+    <button onclick="saveSleep()">Save</button>
+    <p id="sleepDisplay"></p>
+</div>
+
+<div class="card">
+    <h2>Guided Exercise</h2>
+    <select id="exercise">
+        <option>Meditation</option>
+        <option>Breathing</option>
+        <option>Stretching</option>
+    </select>
+    <button onclick="startExercise()">Start 5-min Timer</button>
+    <p id="timer"></p>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
