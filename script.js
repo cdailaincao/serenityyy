@@ -29,10 +29,22 @@ function login() {
 }
 
 function logout() {
-    window.moodChartRef = null;
+    // Clear all visible UI elements
+    if (window.moodChartRef) {
+        window.moodChartRef.destroy();
+        window.moodChartRef = null;
+    }
+
+    if (journalList) journalList.innerHTML = "";
+    if (foodList) foodList.innerHTML = "";
+    if (waterDisplay) waterDisplay.innerText = "";
+    if (sleepDisplay) sleepDisplay.innerText = "";
+    if (timer) timer.innerText = "";
+
     localStorage.removeItem("user");
     location.href = "index.html";
 }
+
 
 /*********************************
  * MOOD TRACKER
@@ -142,15 +154,19 @@ function saveJournal() {
 
 function loadJournals() {
     if (!journalList) return;
+
+    // HARD RESET UI FIRST
     journalList.innerHTML = "";
 
     const journals = JSON.parse(localStorage.getItem(userKey("journals"))) || [];
+
     journals.forEach(j => {
         const li = document.createElement("li");
         li.innerHTML = `<strong>${j.date}</strong><br>${j.text}`;
         journalList.appendChild(li);
     });
 }
+
 
 /*********************************
  * EXERCISE TIMER
