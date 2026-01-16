@@ -1,63 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Serenity – Mental Health Wellness Platform</title>
+    <title>Serenity | Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
+<div class="auth-card">
     <h1>🌿 Serenity</h1>
-    <p>A Mental Health Wellness Platform</p>
-</header>
+    <h3>Mental Health Wellness Platform</h3>
 
-<section class="card">
-    <h2>Daily Mood Tracker</h2>
-    <select id="mood">
-        <option value="">Select mood</option>
-        <option>Happy 😊</option>
-        <option>Calm 😌</option>
-        <option>Stressed 😣</option>
-        <option>Sad 😔</option>
-        <option>Energetic ⚡</option>
-    </select>
-    <button onclick="saveMood()">Save Mood</button>
-    <p id="moodDisplay"></p>
-</section>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
 
-<section class="card">
-    <h2>Food Intake</h2>
-    <input type="text" id="food" placeholder="What did you eat today?">
-    <button onclick="saveFood()">Save</button>
-    <ul id="foodList"></ul>
-</section>
+    <button onclick="login()">Login</button>
+    <button onclick="signup()">Sign Up</button>
 
-<section class="card">
-    <h2>Water Intake (Glasses)</h2>
-    <input type="number" id="water" min="1" max="20">
-    <button onclick="saveWater()">Save</button>
-    <p id="waterDisplay"></p>
-</section>
-
-<section class="card">
-    <h2>Sleep Tracker</h2>
-    <input type="number" id="sleep" min="0" max="24" step="0.5">
-    <button onclick="saveSleep()">Save</button>
-    <p id="sleepDisplay"></p>
-</section>
-
-<section class="card">
-    <h2>Wellness Exercises</h2>
-    <label><input type="checkbox"> Deep Breathing</label><br>
-    <label><input type="checkbox"> Meditation</label><br>
-    <label><input type="checkbox"> Light Stretching</label><br>
-    <label><input type="checkbox"> Journaling</label>
-</section>
-
-<footer>
-    <p>© 2026 Serenity Wellness</p>
-</footer>
+    <p id="authMsg"></p>
+</div>
 
 <script src="script.js"></script>
 </body>
